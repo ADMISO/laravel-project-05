@@ -12,7 +12,7 @@ class AuthController extends Controller
     public function logout(){
         Session::forget('id');
         Session::forget('role');
-
+        Session::forget('image');
         return redirect()->to('/');
     }
 
@@ -28,6 +28,7 @@ class AuthController extends Controller
         if($admin){
             Session::put('role','Admin');
             Session::put('id',$admin['id']);
+            Session::put('image',$admin['image']);
             return redirect()->to('/admin/dashboard');
         }
         else{
