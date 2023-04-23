@@ -37,17 +37,31 @@ Route::middleware(['IsLoggedIn','IsAdmin'])->group(function(){
     Route::post('/admin/store-student',[AdminController::class,'storeStudent']);
     Route::get('/admin/create-teacher',[AdminController::class,'createTeacher']);
     Route::post('/admin/store-teacher',[AdminController::class,'storeTeacher']);
+    Route::get('/admin/create-session',[AdminController::class,'createSession']);
+    Route::post('/admin/store-session',[AdminController::class,'storeSession']);
 
     //tables-edit-delete
     Route::get('/admin/all-students',[AdminController::class,'allStudents']);
     Route::get('/admin/all-teachers',[AdminController::class,'allTeachers']);
+    Route::get('/admin/all-sessions',[AdminController::class,'allSessions']);
     Route::get('/admin/edit-teacher/{id}',[AdminController::class,'editTeacher']);
     Route::get('/admin/delete-teacher/{id}',[AdminController::class,'deleteTeacher']);
     Route::get('/admin/edit-student/{id}',[AdminController::class,'editStudent']);
     Route::get('/admin/delete-student/{id}',[AdminController::class,'deleteStudent']);
     Route::post('/admin/update-teacher/{id}',[AdminController::class,'updateTeacher']);
     Route::post('/admin/update-student/{id}',[AdminController::class,'updateStudent']);
+    Route::get('/admin/update-session/{id}',[AdminController::class,'updateSession']);
+    
+});
 
+Route::middleware(['IsLoggedIn','IsStudent'])->group(function(){
+    Route::get('/student/dashboard',[StudentController::class,'dashboard']);
+    Route::post('/student/update-profile',[StudentController::class,'updateProfile']);
+});
 
+Route::middleware(['IsLoggedIn','IsTeacher'])->group(function(){
+    Route::get('/teacher/dashboard',[TeacherController::class,'dashboard']);
+    Route::post('/teacher/update-profile',[TeacherController::class,'updateProfile']);
+    
 });
 
