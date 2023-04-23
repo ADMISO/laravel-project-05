@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session as Sess;
+use App\Models\Admin;
 use App\Models\Teacher;
 use App\Models\Student;
 use App\Models\Session;
+use App\Models\Course;
+use App\Models\Section;
+use App\Models\Assigncourse;
+use App\Models\Enrollment;
+use Session as Sess;
 use Image;
 use File;
 
@@ -57,9 +62,42 @@ class TeacherController extends Controller
             $teacher->image=$filename;
         }
         if($teacher->save()){
+            Sess::put('image',$teacher->image);
             return redirect()->to('teacher/dashboard');
         }
+    }
+    public function createCourse(){
+        $sessions = Session::where('status','=',1)->get();
+        return view('teacher.pages.createCourse',compact('sessions'));
+    }
+    public function getCourse($id){
+        $courses = Course::where('session_id','=',$id)->get();
+        if($courses){
+            return response()->json(array('courses'=> $courses));
+        }
+    }
+    public function storeCourse(Request $r){
+        $id = Sess::get('id');
+        Course::where('session_id','=',$r->session_id)
+                ->where('teacher_id','=',$id)
+                ->delete();
+        
+        $courses = $r->input('course');
+        
+        $len = count($courses);
 
+        for($i = 0; $i < $len; $i++){  
+           $c = new Course();
+           $c->session_id = $r->session_id;
+           $c->name = $courses[$i];
+           $c->teacher_id = $id;
+           $c->save();
+        }
+        return redirect()->back()->with('scs','Successfully inserted');
+    }
 
+    public function createGroup(){
+        $sessions = Session::where('status','=',1)->get();
+        return view('teacher.pages.createGroup',compact('sessions'));
     }
 }

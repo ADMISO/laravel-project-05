@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session as Sess;
+use App\Models\Admin;
 use App\Models\Teacher;
 use App\Models\Student;
 use App\Models\Session;
+use App\Models\Course;
+use App\Models\Section;
+use App\Models\Assigncourse;
+use App\Models\Enrollment;
+use Session as Sess;
 use Image;
 use File;
 class StudentController extends Controller
@@ -56,9 +61,36 @@ class StudentController extends Controller
             $student->image=$filename;
         }
         if($student->save()){
+            Sess::put('image',$student->image);
             return redirect()->to('student/dashboard');
         }
-
-
+    }
+    public function enrollment(){
+        $sessions = Session::where('status','=',1)->get();
+        return view('student.pages.enrollment',compact('sessions'));
+    }
+    public function getAssignedCourses ($id){
+        $courses = Assigncourse::where('session_id','=',$id)
+                            ->join('teachers','teachers.id','=','assigncourses.teacher_id')
+                            ->join('courses','courses.id','=','assigncourses.course_id')
+                            ->join('sections','sections.id','=','assigncourses.section_id')
+                            ->select('assigncourses.id as id','teachers.name as teacher','courses.name as course','sections.name as section')
+                            ->get();
+        if($courses){
+            return response()->json(array('courses'=> $courses));
+        }
+    }
+    public function storeEnroll(Request $r){
+        $id = Sess::get('id');
+        $acid = $r->input('check');
+        $len = count($acid);
+        for($i=0;$i<$len;$i++){
+            $enroll = new Enrollment();
+            $enroll->ac_id = $acid[$i];
+            $enroll->student_id = $id;
+            $enroll->status = 0;
+            $enroll->save();
+        }
+        return redirect()->back()->with('info','Successfully enrolled');
     }
 }

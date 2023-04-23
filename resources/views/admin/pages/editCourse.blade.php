@@ -5,8 +5,8 @@
     <h1>Dashboard</h1>
     <nav>
         <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Create</a></li>
-        <li class="breadcrumb-item active">Session</li>
+        <li class="breadcrumb-item"><a href="index.html">Edit</a></li>
+        <li class="breadcrumb-item active">Course</li>
         </ol>
     </nav>
     </div><!-- End Page Title -->
@@ -27,7 +27,7 @@
                 @if(Session::has('info'))
                 <div class="alert alert-info">
                     <strong>{{ Session::get('info') }}</strong> 
-                    <a class="btn btn-primary" href="{{url('admin/all-session')}}">View all</a>
+                    <a class="btn btn-primary" href="{{url('admin/all-courses')}}">View all</a>
                 </div>
                 @endif
 
@@ -39,20 +39,26 @@
                 @endif
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Create Session</h5>
-                    <p class="text-center small">Enter session information</p>
+                    <h5 class="card-title text-center pb-0 fs-4">Update Course</h5>
+                    <p class="text-center small">Enter course information</p>
                   </div>
 
-                  <form method="post" action="{{ url('admin/store-session') }}" class="row g-3 needs-validation" novalidate>
+                  <form method="post" action="{{ url('admin/update-course/'.$u->id) }}" class="row g-3 needs-validation" novalidate>
                     @csrf
                     <div class="col-12">
-                      <label for="yourName" class="form-label">Session Name</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Please, enter session name!</div>
+                      <label for="yourName" class="form-label">Course Code</label>
+                      <input type="text" name="code" class="form-control" id="yourName" value="{{$u->code}}" required>
+                      <div class="invalid-feedback">Please, enter course code!</div>
                     </div>
 
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Create Session</button>
+                      <label for="yourName" class="form-label">Course Name</label>
+                      <input type="text" name="name" class="form-control" id="yourName" value="{{$u->name}}" required>
+                      <div class="invalid-feedback">Please, enter course name!</div>
+                    </div>
+
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit">Update course</button>
                     </div>
                     
                   </form>
