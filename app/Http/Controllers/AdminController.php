@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\Teacher;
 use App\Models\Student;
+use App\Models\Session;
 
 class AdminController extends Controller
 {
@@ -24,6 +25,9 @@ class AdminController extends Controller
     }
     public function createStudent(){
         return view('admin.pages.createStudent');
+    }
+    public function createSession(){
+        return view('admin.pages.createSession');
     }
     public function storeTeacher(Request $r){
         $name = $r->name;
@@ -64,6 +68,22 @@ class AdminController extends Controller
         }
     }
 
+    public function storeSession(Request $r){
+        $session = Session::where('name','=',$r->name)->first();
+        if($session){
+            return redirect()->back()->with('err','session already exists');
+        }
+        else{
+            $session = new Session();
+            $session->name = $r->name;
+            $session->status = 1;
+            if($session->save()){
+                return redirect()->back()->with('info','sesssion created successfully');
+            }
+        }
+
+    }
+
     public function allTeachers(){
         $users = Teacher::all();
         return view('admin.pages.allTeachers',compact('users'));
@@ -71,6 +91,10 @@ class AdminController extends Controller
     public function allStudents(){
         $users = Student::all();
         return view('admin.pages.allStudents',compact('users'));
+    }
+    public function allSessions(){
+        $users = Session::all();
+        return view('admin.pages.allSessions',compact('users'));
     }
 
     public function editTeacher($id) {
@@ -128,6 +152,18 @@ class AdminController extends Controller
         if(!is_null($student)){
             $student->delete();
             return redirect()->back()->with('scs','student deleted successfully');
+        }
+    }
+    public function updateSession($id){
+        $session = Session::find($id);
+        if($session->status == 0){
+            $session->status = 1;
+        }
+        else{
+            $session->status = 0;
+        }
+        if($session->save()){
+            return redirect()->to('admin/all-sessions');
         }
     }
 

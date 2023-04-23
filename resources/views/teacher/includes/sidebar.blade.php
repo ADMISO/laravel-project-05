@@ -4,7 +4,7 @@
 <ul class="sidebar-nav" id="sidebar-nav">
 
   <li class="nav-item">
-    <a class="nav-link " href="{{ url('admin/dashboard') }}">
+    <a class="nav-link " href="{{ url('teacher/dashboard') }}">
       <i class="bi bi-grid"></i>
       <span>Dashboard</span>
     </a>
@@ -26,7 +26,7 @@
 
   <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+      <i class="bi bi-layout-text-window-reverse"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
     <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
       <li>
@@ -37,11 +37,6 @@
       <li>
         <a href="{{ url('admin/all-teachers') }}">
           <i class="bi bi-circle"></i><span>All teachers</span>
-        </a>
-      </li>
-      <li>
-        <a href="{{ url('admin/all-sessions') }}">
-          <i class="bi bi-circle"></i><span>All sessions</span>
         </a>
       </li>
     </ul>
@@ -63,8 +58,8 @@
         </a>
       </li>
       <li>
-        <a href="{{ url('admin/create-session') }}">
-          <i class="bi bi-circle"></i><span>Session</span>
+        <a href="components-badges.html">
+          <i class="bi bi-circle"></i><span>Course</span>
         </a>
       </li>
       

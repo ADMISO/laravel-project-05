@@ -20,7 +20,7 @@
                 <div class="card-body">
 
                 @if(Session::has('info'))
-                <div class="alert alert-info">
+                <div class="alert alert-danger">
                     <strong>{{ Session::get('info') }}</strong> 
                 </div>
                 @endif
