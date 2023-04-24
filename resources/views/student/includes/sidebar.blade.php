@@ -9,13 +9,14 @@
       <span>Dashboard</span>
     </a>
   </li>
-
+  <!--
   <li class="nav-item">
     <a class="nav-link" href="{{ url('student/enrollment') }}">
       <i class="bi bi-grid"></i>
       <span>Enroll</span>
     </a>
   </li>
-</ul>
+-->
+</ul> 
 
 </aside><!-- End Sidebar-->

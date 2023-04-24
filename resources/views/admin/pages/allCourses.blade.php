@@ -22,7 +22,8 @@
           <h5 class="card-title">All Courses</h5>
 
           <!-- Table with stripped rows -->
-          <table class="table table-striped" id="example">
+      <!--    <table class="table table-striped" id="example">--> 
+      <table class="table table-striped" >
             <thead>
               <tr>
                 <th scope="col">Code</th>

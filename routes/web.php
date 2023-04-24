@@ -63,7 +63,7 @@ Route::middleware(['IsLoggedIn','IsAdmin'])->group(function(){
 
     //assign-course
     Route::get('/admin/assign-course',[AdminController::class,'assignCourse']);
-    Route::post('/admin/store-course',[AdminController::class,'storeAsssignCourse']);
+    Route::post('/admin/store-assign-course',[AdminController::class,'storeAsssignCourse']);
     Route::get('/test',[AdminController::class,'test']);
 
     //enrollment
