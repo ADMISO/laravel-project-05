@@ -100,9 +100,8 @@
                 $("#button").show();
                 $("#table").show();
                 $.ajax({
-               url: 'http://127.0.0.1:8001/student/get-session-course/'+session_id,
-              // url: 'http://127.0.0.1:8001/student/storeEnroll/'+session_id,
-               
+                url: 'http://127.0.0.1:8000/student/get-session-course/'+session_id,
+           
                     type: 'GET',
                     dataType: 'json',
                     success: function(response){
